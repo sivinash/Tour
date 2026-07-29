@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>சுற்றுலா 1 — Temple Yatra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#6E1F2B;
+    --maroon-deep:#4A1420;
+    --gold:#C79A3F;
+    --gold-light:#E7C97A;
+    --ivory:#FBF4E6;
+    --ivory-dim:#F1E6D0;
+    --ink:#2B1710;
+    --teal:#1F5C55;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Noto Sans Tamil','Cormorant Garamond',serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .en body, [data-lang="en"]{font-family:'Cormorant Garamond',serif;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+    padding:10px 18px;
+    background:var(--maroon-deep);
+    border-bottom:3px solid var(--gold);
+  }
+  .brand{
+    display:flex; align-items:center; gap:8px;
+    color:var(--gold-light);
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .brand .om{
+    font-family:'Noto Sans Tamil', serif;
+    font-size:1.3rem;
+    color:var(--gold);
+  }
+  .topbar-actions{
+    display:flex; align-items:center; gap:10px;
+  }
+  .lang-toggle{
+    display:flex; background:rgba(0,0,0,.25); border:1px solid var(--gold);
+    border-radius:999px; overflow:hidden; font-size:.78rem; font-weight:700;
+  }
+  .lang-toggle button{
+    border:0; background:transparent; color:var(--ivory-dim);
+    padding:6px 12px; cursor:pointer; font-family:inherit; font-size:.8rem;
+    letter-spacing:.03em;
+  }
+  .lang-toggle button.active{
+    background:var(--gold); color:var(--maroon-deep);
+  }
+  .buy-btn{
+    background:linear-gradient(180deg, var(--gold-light), var(--gold));
+    color:var(--maroon-deep);
+    border:0; border-radius:999px;
+    padding:9px 18px;
+    font-weight:800;
+    font-size:.85rem;
+    letter-spacing:.02em;
+    cursor:pointer;
+    box-shadow:0 3px 0 var(--maroon-deep);
+    transition:transform .15s ease;
+    white-space:nowrap;
+  }
+  .buy-btn:active{transform:translateY(2px); box-shadow:0 1px 0 var(--maroon-deep);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:56px 20px 70px;
+    text-align:center;
+    color:var(--ivory);
+    background:
+      radial-gradient(120% 90% at 50% -10%, var(--maroon) 0%, var(--maroon-deep) 60%, #33090F 100%);
+    overflow:hidden;
+  }
+  .gopuram{
+    width:0; height:0; margin:0 auto 14px;
+    border-left:70px solid transparent;
+    border-right:70px solid transparent;
+    border-bottom:60px solid var(--gold);
+    position:relative;
+    filter:drop-shadow(0 4px 0 var(--maroon-deep));
+  }
+  .gopuram::before{
+    content:"";
+    position:absolute; left:-40px; top:60px;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-bottom:34px solid var(--gold-light);
+  }
+  .gopuram::after{
+    content:"॥";
+    position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+    color:var(--gold); font-size:1.4rem;
+  }
+  .kicker{
+    letter-spacing:.25em; text-transform:uppercase;
+    font-size:.7rem; color:var(--gold-light); font-weight:700;
+    margin-top:26px;
+  }
+  h1.title{
+    font-family:'Noto Sans Tamil', serif;
+    font-size:clamp(2.1rem, 7vw, 3.4rem);
+    margin:8px 0 6px;
+    font-weight:800;
+    color:var(--ivory);
+    text-shadow:0 2px 0 rgba(0,0,0,.25);
+  }
+  .subtitle{
+    font-size:1.05rem;
+    color:var(--gold-light);
+    max-width:520px;
+    margin:0 auto;
+    font-style:italic;
+    line-height:1.5;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:14px;
+    margin-top:32px;
+  }
+  .meta-card{
+    background:rgba(251,244,230,.08);
+    border:1px solid rgba(231,201,122,.4);
+    border-radius:14px;
+    padding:14px 20px;
+    min-width:130px;
+  }
+  .meta-card .label{
+    font-size:.68rem; text-transform:uppercase; letter-spacing:.12em;
+    color:var(--gold-light); font-weight:700; margin-bottom:4px;
+  }
+  .meta-card .value{
+    font-size:1.15rem; font-weight:700; color:var(--ivory);
+  }
+
+  /* ---------- Section headers ---------- */
+  .section{padding:48px 18px;}
+  .section-head{
+    text-align:center; margin-bottom:30px;
+  }
+  .section-head .eyebrow{
+    color:var(--teal); font-weight:700; letter-spacing:.18em;
+    text-transform:uppercase; font-size:.7rem;
+  }
+  .section-head h2{
+    font-family:'Noto Sans Tamil', serif;
+    font-size:1.7rem; margin:6px 0 0; color:var(--maroon-deep);
+  }
+  .rule{
+    width:60px; height:3px; background:var(--gold);
+    margin:14px auto 0; border-radius:2px;
+  }
+
+  /* ---------- Route / mala list ---------- */
+  .route{
+    max-width:620px; margin:0 auto;
+    position:relative;
+    padding-left:30px;
+  }
+  .route::before{
+    content:"";
+    position:absolute; left:9px; top:6px; bottom:6px;
+    width:2px;
+    background:repeating-linear-gradient(180deg, var(--gold) 0 6px, transparent 6px 12px);
+  }
+  .stop{
+    position:relative;
+    padding:0 0 22px 14px;
+  }
+  .stop::before{
+    content:attr(data-n);
+    position:absolute; left:-30px; top:-2px;
+    width:22px; height:22px; border-radius:50%;
+    background:var(--maroon);
+    color:var(--gold-light);
+    font-size:.68rem; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 3px var(--ivory);
+  }
+  .stop .name{
+    font-size:1.05rem; font-weight:600; color:var(--ink);
+  }
+  .stop .name .en-name{
+    display:block; font-size:.82rem; color:#7a5b45; font-style:italic; margin-top:1px;
+  }
+
+  /* ---------- Info strip ---------- */
+  .info-strip{
+    background:var(--ivory-dim);
+    border-top:1px solid #e6d7b8; border-bottom:1px solid #e6d7b8;
+  }
+  .info-grid{
+    max-width:760px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px;
+  }
+  .info-item{
+    background:var(--ivory);
+    border:1px solid #e6d7b8; border-radius:12px;
+    padding:18px;
+    text-align:center;
+  }
+  .info-item .icon{font-size:1.4rem; margin-bottom:6px; color:var(--maroon);}
+  .info-item .lbl{font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:#9a7c55; font-weight:700;}
+  .info-item .val{font-size:1.15rem; font-weight:700; color:var(--maroon-deep); margin-top:2px;}
+  .info-item .sub{font-size:.82rem; color:#7a5b45; margin-top:2px;}
+
+  /* ---------- Footer / CTA ---------- */
+  .cta-block{
+    text-align:center; padding:52px 18px 60px;
+    background:linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dim) 100%);
+  }
+  .cta-block p{color:#7a5b45; max-width:420px; margin:0 auto 20px; font-size:1rem;}
+  .big-buy{
+    background:linear-gradient(180deg, var(--gold-light), var(--gold));
+    color:var(--maroon-deep);
+    border:0; border-radius:999px;
+    padding:15px 40px;
+    font-weight:800; font-size:1rem;
+    cursor:pointer;
+    box-shadow:0 4px 0 var(--maroon-deep);
+  }
+  .big-buy:active{transform:translateY(2px); box-shadow:0 2px 0 var(--maroon-deep);}
+  footer{
+    text-align:center; padding:18px; font-size:.75rem;
+    background:var(--maroon-deep); color:var(--gold-light);
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(43,23,16,.55);
+    display:none; align-items:center; justify-content:center; z-index:200;
+    padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--ivory); border-radius:16px; max-width:360px; width:100%;
+    padding:26px; text-align:center; border:2px solid var(--gold);
+  }
+  .modal h3{color:var(--maroon-deep); margin-top:0; font-family:'Noto Sans Tamil',serif;}
+  .modal p{color:#5b4433; font-size:.92rem; line-height:1.5;}
+  .modal .phone{
+    display:inline-block; margin-top:8px; font-weight:800; color:var(--maroon);
+    font-size:1.15rem; letter-spacing:.03em;
+  }
+  .modal button.close{
+    margin-top:18px; background:var(--maroon); color:var(--ivory);
+    border:0; border-radius:999px; padding:10px 24px; font-weight:700; cursor:pointer;
+  }
+
+  @media (max-width:480px){
+    .brand span.txt{display:none;}
+    .buy-btn{padding:8px 14px; font-size:.78rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="om">ௐ</span><span class="txt" data-i="brand">சுற்றுலா யாத்திரை</span></div>
+  <div class="topbar-actions">
+    <div class="lang-toggle">
+      <button id="btn-ta" class="active" onclick="setLang('ta')">தமிழ்</button>
+      <button id="btn-en" onclick="setLang('en')">ENG</button>
+    </div>
+    <button class="buy-btn" onclick="openModal()" data-i="bookNow">இப்போது பதிவு செய்யவும்</button>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="gopuram"></div>
+  <div class="kicker" data-i="kicker">தமிழ்நாடு கோவில் யாத்திரை</div>
+  <h1 class="title" data-i="pageTitle">சுற்றுலா 1</h1>
+  <p class="subtitle" data-i="tagline">27 புனிதத் தலங்கள் · ஒரே பயணத்தில் · தங்குமிடம் &amp; சாப்பாடு உட்பட</p>
+
+  <div class="hero-meta">
+    <div class="meta-card">
+      <div class="label" data-i="departLabel">புறப்படும் நாள்</div>
+      <div class="value">05/02/2027</div>
+    </div>
+    <div class="meta-card">
+      <div class="label" data-i="feeLabel">கட்டணம்</div>
+      <div class="value">₹7,000</div>
+    </div>
+    <div class="meta-card">
+      <div class="label" data-i="stopsLabel">தலங்கள்</div>
+      <div class="value">27</div>
+    </div>
+  </div>
+</section>
+
+<section class="info-strip section">
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="icon">🛏️</div>
+      <div class="lbl" data-i="includeLabel">சேர்க்கப்பட்டவை</div>
+      <div class="val" data-i="includeVal">தங்குமிடம் &amp; சாப்பாடு</div>
+    </div>
+    <div class="info-item">
+      <div class="icon">📅</div>
+      <div class="lbl" data-i="departLabel">புறப்படும் நாள்</div>
+      <div class="val">05/02/2027</div>
+    </div>
+    <div class="info-item">
+      <div class="icon">💰</div>
+      <div class="lbl" data-i="feeLabel">கட்டணம்</div>
+      <div class="val">₹7,000</div>
+      <div class="sub" data-i="perHead">ஒருவருக்கு</div>
+    </div>
+    <div class="info-item">
+      <div class="icon">📞</div>
+      <div class="lbl" data-i="contactLabel">தொலைபேசி எண்</div>
+      <div class="val">9884114683</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="eyebrow" data-i="eyebrowRoute">பயண வழி</div>
+    <h2 data-i="routeTitle">பார்க்கும் இடங்கள்</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="route" id="route-list"></div>
+</section>
+
+<div class="cta-block">
+  <p data-i="ctaText">இடங்கள் குறைவே! உங்கள் இடத்தை இப்போதே பதிவு செய்து யாத்திரையில் இணையுங்கள்.</p>
+  <button class="big-buy" onclick="openModal()" data-i="bookNow2">இப்போது பதிவு செய்யவும்</button>
+</div>
+
+<footer data-i="footer">சுற்றுலா 1 · தொலைபேசி: 9884114683</footer>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 data-i="modalTitle">பதிவுக்கு தொடர்பு கொள்ளவும்</h3>
+    <p data-i="modalBody">உங்கள் இருக்கையை உறுதி செய்ய கீழே உள்ள எண்ணை அழைக்கவும்.</p>
+    <a class="phone" href="tel:9884114683">📞 98841 14683</a>
+    <div><button class="close" onclick="closeModal()" data-i="modalClose">சரி</button></div>
+  </div>
+</div>
+
+<script>
+const places = [
+  {ta:"திருவேற்காடு", en:"Thiruverkadu"},
+  {ta:"ரத்னகிரி", en:"Ratnagiri"},
+  {ta:"தீர்த்தகிரி", en:"Theerthagiri"},
+  {ta:"ஒகேனக்கல் அருவி", en:"Hogenakkal Falls"},
+  {ta:"பவானி", en:"Bhavani"},
+  {ta:"கொல்லிமலை", en:"Kolli Hills"},
+  {ta:"திருச்செங்கோடு", en:"Tiruchengode"},
+  {ta:"சென்னிமலை சிவன்", en:"Sennimalai Shiva Temple"},
+  {ta:"கொடைக்கானல்", en:"Kodaikanal"},
+  {ta:"நாமக்கல் ஆஞ்சநேயர்", en:"Namakkal Anjaneyar"},
+  {ta:"நாமக்கல் பெருமாள்", en:"Namakkal Perumal"},
+  {ta:"குற்றாலம்", en:"Courtallam"},
+  {ta:"பாபநாசம்", en:"Papanasam"},
+  {ta:"நெல்லையப்பர்", en:"Nellaiappar Temple"},
+  {ta:"வன திருப்பதி", en:"Vana Tirupati"},
+  {ta:"குலசேகரபட்டினம்", en:"Kulasekharapatnam"},
+  {ta:"திருச்செந்தூர்", en:"Tiruchendur"},
+  {ta:"ராமேஸ்வரம்", en:"Rameswaram"},
+  {ta:"ராமர் பாதம்", en:"Ramar Patham"},
+  {ta:"தனுஷ்கோடி", en:"Dhanushkodi"},
+  {ta:"தேவிபட்டினம்", en:"Devipattinam"},
+  {ta:"புதுக்கோட்டை புவனேஸ்வரி", en:"Pudukkottai Bhuvaneswari"},
+  {ta:"வேளாங்கண்ணி", en:"Velankanni"},
+  {ta:"திருக்கடையூர்", en:"Thirukkadaiyur"},
+  {ta:"திருவேலங்காடு", en:"Thiruvelangadu"},
+  {ta:"வைத்தீஸ்வரன்", en:"Vaitheeswaran Koil"},
+  {ta:"சிதம்பரம்", en:"Chidambaram"}
+];
+
+function renderRoute(lang){
+  const wrap = document.getElementById('route-list');
+  wrap.innerHTML = places.map((p,i)=>`
+    <div class="stop" data-n="${i+1}">
+      <div class="name">
+        ${lang==='ta' ? p.ta : p.en}
+        <span class="en-name">${lang==='ta' ? p.en : p.ta}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+const dict = {
+  ta:{
+    brand:"சுற்றுலா யாத்திரை",
+    bookNow:"இப்போது பதிவு செய்யவும்",
+    bookNow2:"இப்போது பதிவு செய்யவும்",
+    kicker:"தமிழ்நாடு கோவில் யாத்திரை",
+    pageTitle:"சுற்றுலா 1",
+    tagline:"27 புனிதத் தலங்கள் · ஒரே பயணத்தில் · தங்குமிடம் & சாப்பாடு உட்பட",
+    departLabel:"புறப்படும் நாள்",
+    feeLabel:"கட்டணம்",
+    stopsLabel:"தலங்கள்",
+    includeLabel:"சேர்க்கப்பட்டவை",
+    includeVal:"தங்குமிடம் & சாப்பாடு",
+    perHead:"ஒருவருக்கு",
+    contactLabel:"தொலைபேசி எண்",
+    eyebrowRoute:"பயண வழி",
+    routeTitle:"பார்க்கும் இடங்கள்",
+    ctaText:"இடங்கள் குறைவே! உங்கள் இடத்தை இப்போதே பதிவு செய்து யாத்திரையில் இணையுங்கள்.",
+    footer:"சுற்றுலா 1 · தொலைபேசி: 9884114683",
+    modalTitle:"பதிவுக்கு தொடர்பு கொள்ளவும்",
+    modalBody:"உங்கள் இருக்கையை உறுதி செய்ய கீழே உள்ள எண்ணை அழைக்கவும்.",
+    modalClose:"சரி"
+  },
+  en:{
+    brand:"Temple Yatra",
+    bookNow:"Book Now",
+    bookNow2:"Book Your Seat",
+    kicker:"Tamil Nadu Temple Pilgrimage",
+    pageTitle:"Tour 1",
+    tagline:"27 sacred shrines · one journey · stay & meals included",
+    departLabel:"Departure Date",
+    feeLabel:"Fee",
+    stopsLabel:"Stops",
+    includeLabel:"Included",
+    includeVal:"Stay & Meals",
+    perHead:"per person",
+    contactLabel:"Phone Number",
+    eyebrowRoute:"The Route",
+    routeTitle:"Places to Visit",
+    ctaText:"Seats are limited! Book your place now and join the yatra.",
+    footer:"Tour 1 · Phone: 9884114683",
+    modalTitle:"Contact to Book",
+    modalBody:"Call the number below to confirm your seat.",
+    modalClose:"OK"
+  }
+};
+
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.getElementById('btn-ta').classList.toggle('active', lang==='ta');
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.querySelectorAll('[data-i]').forEach(el=>{
+    const key = el.getAttribute('data-i');
+    if(dict[lang][key]) el.innerHTML = dict[lang][key];
+  });
+  renderRoute(lang);
+  localStorage.setItem('yatra-lang', lang);
+}
+
+function openModal(){ document.getElementById('modal').classList.add('open'); }
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', (e)=>{
+  if(e.target.id==='modal') closeModal();
+});
+
+renderRoute('ta');
+</script>
+
+</body>
+</html>
